@@ -9,11 +9,20 @@
 
 body { background-color: var(--cor-fundo); color: var(--cor-texto); padding-bottom: 80px; }
 
-header { background: white; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+header {
+    background: white;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    position: relative;
+    z-index: 100;
+}
 
 .logo { font-size: 1.5rem; font-weight: bold; color: var(--cor-primaria); text-align: center; margin-bottom: 10px; }
 
-.hero-banner { background: var(--cor-secundaria); color: #000; text-align: center; padding: 8px; border-radius: 5px; font-size: 0.9rem; margin-bottom: 15px; }
+.hero-banner {
+    display: none;
+}
 
 #busca { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 15px; font-size: 1rem; }
 
@@ -27,7 +36,37 @@ h2 { margin-bottom: 15px; font-size: 1.2rem; }
 
 .produtos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
 
-.produto-card { background: white; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+.produto-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid rgba(0, 0, 0, 0.03);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    .produto-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+}
 
 .produto-card img {
     width: 100%;
@@ -184,27 +223,268 @@ h2 { margin-bottom: 15px; font-size: 1.2rem; }
 }
 
 
-/* Celulares muito pequenos */
-@media (max-width: 360px) {
+/* ===============================
+   CAPA / BANNER DO HAMBURGÃO
+================================ */
 
-    .produtos-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 7px;
+    .marca-topo {
+        position: relative;
+
+        min-height: 360px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        gap: 10px;
+
+        margin-bottom: 15px;
+
+        border-radius: 16px;
+        overflow: hidden;
+
+        background-image:
+            linear-gradient(
+                rgba(0, 0, 0, 0.38),
+                rgba(0, 0, 0, 0.38)
+            ),
+            url("../imagens/catalogo-banner.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* Logo sobre a capa */
+.logo-site {
+    position: relative;
+    z-index: 2;
+
+    width: 200px;
+    max-width: 70%;
+
+    height: auto;
+
+    object-fit: contain;
+
+    display: block;
+
+    filter:
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+}
+
+
+/* Nome da empresa sobre a capa */
+.nome-site {
+    position: relative;
+    z-index: 2;
+
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+
+    font-size: 46px;
+    font-weight: 900;
+
+    color: #FFD21A;
+
+    text-align: center;
+
+    letter-spacing: 1px;
+
+    -webkit-text-stroke: 2px #7A120A;
+
+    text-shadow:
+        2px 2px 0 #3b0a05,
+        4px 4px 8px rgba(0, 0, 0, 0.55);
+}
+
+
+/* =================================
+   BOTÕES DO CATÁLOGO
+================================= */
+
+/* Botões das categorias */
+.categorias button {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    padding: 11px 20px;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.categorias button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+.categorias button.ativo {
+    background: #d92d2d;
+    color: #ffffff;
+}
+
+
+/* Botão ofertas */
+.categorias .oferta-btn {
+    background: #ffb000;
+    color: #111111;
+}
+
+.categorias .oferta-btn.ativo {
+    background: #ff9800;
+    color: #111111;
+}
+
+
+/* Botão adicionar */
+.btn-add {
+    border: none;
+    border-radius: 9px;
+
+    background: #d92d2d;
+    color: white;
+
+    font-weight: 700;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn-add:hover {
+    background: #bb2020;
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(217, 45, 45, 0.25);
+}
+
+.btn-add:active {
+    transform: scale(0.97);
+}
+
+
+/* Carrinho */
+.btn-carrinho-flutuante {
+    border: none;
+    border-radius: 16px;
+
+    background: #d92d2d;
+    color: white;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn-carrinho-flutuante:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.28);
+}
+
+
+/* WhatsApp */
+.btn-whatsapp {
+    border: none;
+    border-radius: 10px;
+
+    background: #25d366;
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.92);
+}
+
+/* =================================
+   BANNER - AJUSTE EXCLUSIVO CELULAR
+================================= */
+
+@media (max-width: 600px) {
+
+    .marca-topo {
+        min-height: 0;
+        height: 190px;
+
+        margin-bottom: 10px;
+
+        border-radius: 12px;
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
-    .produto-card {
-        padding: 6px;
-    }
+    /* A imagem do banner já possui logo e texto */
+    .marca-topo .logo-site {
+    display: block;
+    width: 120px;
+    max-width: 42%;
+    height: auto;
 
-    .produto-card img {
-        height: 110px;
-    }
+    position: relative;
+    z-index: 2;
 
-    .produto-nome {
-        font-size: 0.8rem;
-    }
+    filter: drop-shadow(
+        0 4px 8px rgba(0, 0, 0, 0.45)
+    );
+}
 
-    .produto-preco {
-        font-size: 0.95rem;
+    .marca-topo .nome-site {
+    display: block;
+
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+
+    font-size: 17px;
+    font-weight: 900;
+
+    color: #FFD21A;
+
+    text-align: center;
+    letter-spacing: 1px;
+
+    -webkit-text-stroke: 1px #7A120A;
+
+    text-shadow:
+        1px 1px 0 #3b0a05,
+        2px 2px 5px rgba(0, 0, 0, 0.55);
+}
+
+    /* Evita repetir a frase que já existe no banner */
+    .hero-banner {
+    display: block;
+    font-size: 0.70rem;
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+}
+
+    header {
+        padding: 10px;
     }
 }
