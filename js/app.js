@@ -1,6 +1,6 @@
 let produtos = [];
 let carrinho = [];
-const numeroWhatsApp = "5521965962781"; // SUBSTITUA PELO NÚMERO DO HAMBURGÃO
+const numeroWhatsApp = "5521966021271"; // SUBSTITUA PELO NÚMERO DO HAMBURGÃO
 
 // O link do seu Google Sheets (com tsv no final)
 const urlPlanilha = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUKD76Prz_IblIIMZVmqU07cD47M1WN_J36Z1PtTQIC9neD3xPuv8v7m48x0JQb1HZZfuCfTht89cl/pub?output=tsv";
