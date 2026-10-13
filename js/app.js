@@ -1,6 +1,6 @@
 let produtos = [];
 let carrinho = [];
-const numeroWhatsApp = "5521999999999"; // SUBSTITUA PELO NÚMERO DO HAMBURGÃO
+const numeroWhatsApp = "5521965962781"; // SUBSTITUA PELO NÚMERO DO HAMBURGÃO
 
 // O link do seu Google Sheets (com tsv no final)
 const urlPlanilha = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUKD76Prz_IblIIMZVmqU07cD47M1WN_J36Z1PtTQIC9neD3xPuv8v7m48x0JQb1HZZfuCfTht89cl/pub?output=tsv";
@@ -52,6 +52,12 @@ function processarDadosPlanilha(texto) {
 
         const colunas = linha.split('\t');
 
+    // Garante que existam pelo menos 7 colunas.
+        // Se OFERTA estiver vazia, ela será considerada FALSO.
+        while (colunas.length < 7) {
+            colunas.push('');
+        }
+
         if (colunas.length >= 6) {
             // Verifica se está em oferta (aceita VERDADEIRO, TRUE ou SIM)
             const valorOferta = colunas[6] ? colunas[6].trim().toUpperCase() : '';
@@ -82,8 +88,21 @@ function processarDadosPlanilha(texto) {
 
 // Verifica se a imagem usa uma URL HTTPS válida
 function urlImagemSegura(url) {
+
+    const valor = String(url || '').trim();
+
+    if (!valor) {
+        return '';
+    }
+
+    // Imagens locais do próprio catálogo
+    if (/^imagens\/produtos\/[a-zA-Z0-9._-]+$/.test(valor)) {
+        return valor;
+    }
+
+    // Imagens HTTPS antigas durante a transição
     try {
-        const endereco = new URL(String(url || '').trim());
+        const endereco = new URL(valor);
 
         if (endereco.protocol !== 'https:') {
             return '';
@@ -152,14 +171,25 @@ function renderizarProdutos(lista) {
 
 
         // NOME
+        // NOME
         const nome = document.createElement('div');
 
-        nome.className = 'produto-nome';
+            nome.className = 'produto-nome';
+            nome.textContent = produto.nome;
 
-        nome.textContent =
-            `${produto.nome} (${produto.unidade})`;
+            card.appendChild(nome);
 
-        card.appendChild(nome);
+
+            // UNIDADE
+            const unidade = document.createElement('div');
+
+            unidade.className = 'produto-unidade';
+
+        if (produto.unidade) {
+                unidade.textContent = produto.unidade;
+            }
+
+            card.appendChild(unidade);
 
 
         // PREÇO
